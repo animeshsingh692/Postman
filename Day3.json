@@ -1,0 +1,426 @@
+{
+	"info": {
+		"_postman_id": "45be940d-c44a-4e0e-950c-816ee5cea2ea",
+		"name": "Day3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12739483"
+	},
+	"item": [
+		{
+			"name": "Get Single Student",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code Validation\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message Validation\", () => {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Headers Validation\", () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"});\r",
+							"// pm.test(\"Cookie Validation\", () => {\r",
+							"//     pm.expect(pm.cookies.has('language')).to.be.true;\r",
+							"//     pm.expect(pm.cookies.get('language')).to.eql('en-gb');\r",
+							"// })\r",
+							"\r",
+							"pm.test(\"Response Time Validation\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(10);\r",
+							"})\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Response Data Type Validation\", () => {\r",
+							"    pm.expect(jsonData).to.be.an(\"object\");\r",
+							"    pm.expect(jsonData.name).to.be.a(\"String\");\r",
+							"    pm.expect(jsonData.age).to.be.a(\"Number\");\r",
+							"    pm.expect(jsonData.hobbies).to.be.an(\"array\");\r",
+							"    pm.expect(jsonData.address).to.be.an(\"object\");\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Response Data Validation\", () => {\r",
+							"    pm.expect(jsonData.name).to.eql(\"Johnny\");\r",
+							"    pm.expect(jsonData.hobbies).to.have.members([\r",
+							"        \"eating\",\r",
+							"        \"sleeping\",\r",
+							"        \"running\"\r",
+							"    ]);\r",
+							"    pm.expect(jsonData.city).to.eql(\"Coorg\");\r",
+							"    pm.expect(jsonData.age).to.eql(34);\r",
+							"    pm.expect(jsonData.married).to.eql(true);\r",
+							"    pm.expect(jsonData.address.street).to.eql(\"123 Main Street\");\r",
+							"    pm.expect(jsonData.address.city).to.eql(\"Coorg City\");\r",
+							"    pm.expect(jsonData.address.postal_code).to.eql(\"67898\");\r",
+							"})\r",
+							"\r",
+							"// Schema Validation\r",
+							"var Ajv = require('ajv');\r",
+							"ajv = new Ajv({ logger: console, allErrors: true });\r",
+							"const schema = {\r",
+							"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"id\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"name\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"age\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"city\": {\r",
+							"      \"type\": \"string\"\r",
+							"    },\r",
+							"    \"married\": {\r",
+							"      \"type\": \"boolean\"\r",
+							"    },\r",
+							"    \"hobbies\": {\r",
+							"      \"type\": \"array\",\r",
+							"      \"items\": [\r",
+							"        {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        {\r",
+							"          \"type\": \"string\"\r",
+							"        }\r",
+							"      ]\r",
+							"    },\r",
+							"    \"address\": {\r",
+							"      \"type\": \"object\",\r",
+							"      \"properties\": {\r",
+							"        \"street\": {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        \"city\": {\r",
+							"          \"type\": \"string\"\r",
+							"        },\r",
+							"        \"postal_code\": {\r",
+							"          \"type\": \"string\"\r",
+							"        }\r",
+							"      },\r",
+							"      \"required\": [\r",
+							"        \"street\",\r",
+							"        \"city\",\r",
+							"        \"postal_code\"\r",
+							"      ]\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\r",
+							"    \"id\",\r",
+							"    \"name\",\r",
+							"    \"age\",\r",
+							"    \"city\",\r",
+							"    \"married\",\r",
+							"    \"hobbies\",\r",
+							"    \"address\"\r",
+							"  ]\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Schema Validation\", () => {\r",
+							"    pm.expect(ajv.validate(schema, jsonData), JSON.stringify(ajv.errors)).to.be.true;\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/students/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Students",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code Validation\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message Validation\", () => {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Headers Validation\", () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response Time Validation\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(10);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Single Student",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code Validation\", () => {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Status Message Validation\", () => {\r",
+							"    pm.response.to.have.status(\"Created\");\r",
+							"});\r",
+							"pm.test(\"Headers Validation\", () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"});\r",
+							"// pm.test(\"Cookie Validation\", () => {\r",
+							"//     pm.expect(pm.cookies.has('language')).to.be.true;\r",
+							"//     pm.expect(pm.cookies.get('language')).to.eql('en-gb');\r",
+							"// })\r",
+							"\r",
+							"pm.test(\"Response Time Validation\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(10);\r",
+							"})\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Response Data Type Validation\", () => {\r",
+							"    pm.expect(jsonData).to.be.an(\"object\");\r",
+							"    pm.expect(jsonData.name).to.be.a(\"String\");\r",
+							"    pm.expect(jsonData.age).to.be.a(\"Number\");\r",
+							"    pm.expect(jsonData.hobbies).to.be.an(\"array\");\r",
+							"    pm.expect(jsonData.address).to.be.an(\"object\");\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Response Data Validation\", () => {\r",
+							"    pm.expect(jsonData.name).to.eql(\"Shiva\");\r",
+							"    pm.expect(jsonData.hobbies).to.have.members([\"helping\", \"donating\", \"music\"]);\r",
+							"    pm.expect(jsonData.city).to.eql(\"Kailash\");\r",
+							"    pm.expect(jsonData.age).to.eql(39);\r",
+							"    pm.expect(jsonData.married).to.eql(true);\r",
+							"    pm.expect(jsonData.address.street).to.eql(\"Mt. Kailash\");\r",
+							"    pm.expect(jsonData.address.city).to.eql(\"Tibet\");\r",
+							"    pm.expect(jsonData.address.postal_code).to.eql(\"11111\");\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\": \"Shiva\",\r\n\t\"age\": 39,\r\n\t\"city\": \"Kailash\",\r\n\t\"married\": true,\r\n\t\"hobbies\": [\"helping\", \"donating\", \"music\"],\r\n\t\"address\": {\r\n\t\t\"street\": \"Mt. Kailash\",\r\n\t\t\"city\": \"Tibet\",\r\n\t\t\"postal_code\": \"11111\"\r\n\t}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Single Student",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code Validation\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message Validation\", () => {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Headers Validation\", () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"});\r",
+							"// pm.test(\"Cookie Validation\", () => {\r",
+							"//     pm.expect(pm.cookies.has('language')).to.be.true;\r",
+							"//     pm.expect(pm.cookies.get('language')).to.eql('en-gb');\r",
+							"// })\r",
+							"\r",
+							"pm.test(\"Response Time Validation\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(10);\r",
+							"})\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Response Data Type Validation\", () => {\r",
+							"    pm.expect(jsonData).to.be.an(\"object\");\r",
+							"    pm.expect(jsonData.name).to.be.a(\"String\");\r",
+							"    pm.expect(jsonData.age).to.be.a(\"Number\");\r",
+							"    pm.expect(jsonData.hobbies).to.be.an(\"array\");\r",
+							"    pm.expect(jsonData.address).to.be.an(\"object\");\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Response Data Validation\", () => {\r",
+							"    pm.expect(jsonData.name).to.eql(\"Johnny\");\r",
+							"    pm.expect(jsonData.hobbies).to.have.members([\r",
+							"        \"eating\",\r",
+							"        \"sleeping\",\r",
+							"        \"running\"\r",
+							"    ]);\r",
+							"    pm.expect(jsonData.city).to.eql(\"Coorg\");\r",
+							"    pm.expect(jsonData.age).to.eql(40);\r",
+							"    pm.expect(jsonData.married).to.eql(false);\r",
+							"    pm.expect(jsonData.address.street).to.eql(\"123 Main Street\");\r",
+							"    pm.expect(jsonData.address.city).to.eql(\"Coorg City\");\r",
+							"    pm.expect(jsonData.address.postal_code).to.eql(\"67898\");\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\": \"Johnny\",\r\n\t\"age\": 40,\r\n\t\"city\": \"Coorg\",\r\n\t\"married\": false,\r\n\t\"hobbies\": [\"eating\", \"sleeping\", \"running\"],\r\n\t\"address\": {\r\n\t    \"street\": \"123 Main Street\",\r\n\t    \"city\": \"Coorg City\",\r\n\t\t\"postal_code\": \"67898\"\r\n\t}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/students/ef46",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students",
+						"ef46"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Single Student",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code Validation\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Status Message Validation\", () => {\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"});\r",
+							"pm.test(\"Headers Validation\", () => {\r",
+							"    pm.response.to.have.header('Content-Type');\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+							"});\r",
+							"// pm.test(\"Cookie Validation\", () => {\r",
+							"//     pm.expect(pm.cookies.has('language')).to.be.true;\r",
+							"//     pm.expect(pm.cookies.get('language')).to.eql('en-gb');\r",
+							"// })\r",
+							"\r",
+							"pm.test(\"Response Time Validation\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(10);\r",
+							"})\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Response Data Type Validation\", () => {\r",
+							"    pm.expect(jsonData).to.be.an(\"object\");\r",
+							"    pm.expect(jsonData.name).to.be.a(\"String\");\r",
+							"    pm.expect(jsonData.age).to.be.a(\"Number\");\r",
+							"    pm.expect(jsonData.hobbies).to.be.an(\"array\");\r",
+							"    pm.expect(jsonData.address).to.be.an(\"object\");\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Response Data Validation\", () => {\r",
+							"    pm.expect(jsonData.name).to.eql(\"Shiva\");\r",
+							"    pm.expect(jsonData.hobbies).to.have.members([\"helping\", \"donating\", \"music\"]);\r",
+							"    pm.expect(jsonData.city).to.eql(\"Kailash\");\r",
+							"    pm.expect(jsonData.age).to.eql(39);\r",
+							"    pm.expect(jsonData.married).to.eql(true);\r",
+							"    pm.expect(jsonData.address.street).to.eql(\"Mt. Kailash\");\r",
+							"    pm.expect(jsonData.address.city).to.eql(\"Tibet\");\r",
+							"    pm.expect(jsonData.address.postal_code).to.eql(\"11111\");\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/students/e2e1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students",
+						"e2e1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
