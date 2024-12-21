@@ -1,0 +1,89 @@
+{
+  "students": [
+    {
+      "id": "2",
+      "name": "Johnny",
+      "age": 34,
+      "city": "Coorg",
+      "married": true,
+      "hobbies": [
+        "eating",
+        "sleeping",
+        "running"
+      ],
+      "address": {
+        "street": "123 Main Street",
+        "city": "Coorg City",
+        "postal_code": "67898"
+      }
+    },
+    {
+      "id": "3",
+      "name": "Janardan",
+      "age": 27,
+      "city": "Saager",
+      "married": true,
+      "hobbies": [
+        "helping",
+        "donating",
+        "music"
+      ],
+      "address": {
+        "street": "Center of multiverse",
+        "city": "Ocean",
+        "postal_code": "55555"
+      }
+    },
+    {
+      "id": "5ac6",
+      "name": "Shiva",
+      "age": 31,
+      "city": "Kailash",
+      "married": true,
+      "hobbies": [
+        "helping",
+        "donating",
+        "music"
+      ],
+      "address": {
+        "street": "Mt. Kailash",
+        "city": "Tibet",
+        "postal_code": "11111"
+      }
+    },
+    {
+      "name": "Johnny",
+      "age": 34,
+      "city": "Coorg",
+      "married": true,
+      "hobbies": [
+        "eating",
+        "sleeping",
+        "running"
+      ],
+      "address": {
+        "street": "123 Main Street",
+        "city": "Coorg City",
+        "postal_code": "67898"
+      },
+      "id": "ef46"
+    },
+    {
+      "id": "e3e0",
+      "name": "Shiva",
+      "age": 31,
+      "city": "Kailash",
+      "married": true,
+      "hobbies": [
+        "helping",
+        "donating",
+        "music"
+      ],
+      "address": {
+        "street": "Mt. Kailash",
+        "city": "Tibet",
+        "postal_code": "11111"
+      }
+    }
+  ]
+}

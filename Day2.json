@@ -1,0 +1,125 @@
+{
+	"info": {
+		"_postman_id": "14cbaf26-b10e-4cb5-99c5-8fb507e378a8",
+		"name": "Day2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12739483"
+	},
+	"item": [
+		{
+			"name": "Get Single Student",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Students",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Single Student",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\": \"Shiva\",\r\n\t\"age\": 31,\r\n\t\"city\": \"Kailash\",\r\n\t\"married\": true,\r\n\t\"hobbies\": [\"helping\", \"donating\", \"music\"],\r\n\t\"address\": {\r\n\t\t\"street\": \"Mt. Kailash\",\r\n\t\t\"city\": \"Tibet\",\r\n\t\t\"postal_code\": \"11111\"\r\n\t}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Single Student",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\": \"Johnny\",\r\n\t\"age\": 34,\r\n\t\"city\": \"Coorg\",\r\n\t\"married\": true,\r\n\t\"hobbies\": [\"eating\", \"sleeping\", \"running\"],\r\n\t\"address\": {\r\n\t    \"street\": \"123 Main Street\",\r\n\t    \"city\": \"Coorg City\",\r\n\t\t\"postal_code\": \"67898\"\r\n\t}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/students/ef46",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students",
+						"ef46"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Single Student",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/students/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"students",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
