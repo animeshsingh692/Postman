@@ -1,0 +1,201 @@
+{
+	"info": {
+		"_postman_id": "39dace97-300f-4f6f-bed9-5b92a3fbdc89",
+		"name": "Day4",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12739483"
+	},
+	"item": [
+		{
+			"name": "Basic_Request_Folder",
+			"item": [
+				{
+					"name": "Get Single User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Get request level pre script\");\r",
+									"pm.variables.set(\"id\", 2);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(\"Get request level post script\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_global}}/api/users/{{id}}",
+							"host": [
+								"{{url_global}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create single user",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"console.log(\"Post request level pre script\");\r",
+									"pm.variables.set(\"jobname\", \"Leader\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(\"Post request level post script\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"leader\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_collection}}/api/users",
+							"host": [
+								"{{url_collection}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"console.log(\"Folder level pre script\");"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"console.log(\"Folder level post script\");"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.log(\"Put request level pre script\");\r",
+							"pm.globals.set(\"updateid\", 2)"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Put request level post script\");\r",
+							"pm.globals.unset(\"updateid\");"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{url_env_qa}}/api/users/{{updateid}}",
+					"host": [
+						"{{url_env_qa}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"{{updateid}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"console.log(\"Collection level pre script\");"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"console.log(\"Collection level post script\");"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url_collection",
+			"value": "https://reqres.in",
+			"type": "string"
+		}
+	]
+}
