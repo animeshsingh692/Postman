@@ -1,0 +1,243 @@
+{
+	"info": {
+		"_postman_id": "447beade-81e2-41d4-8c80-16727bd20d0d",
+		"name": "Day5",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12739483"
+	},
+	"item": [
+		{
+			"name": "Create single user",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"url_qa\", \"https://gorest.co.in\");\r",
+							"\r",
+							"const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';\r",
+							"let result = '';\r",
+							"for (let i = 0; i < 8; i++) {\r",
+							"    const randomIndex = Math.floor(Math.random() * characters.length);\r",
+							"    result += characters[randomIndex];\r",
+							"}\r",
+							"\r",
+							"let user_name = result;\r",
+							"let user_email = result + \"@email.com\";\r",
+							"\r",
+							"pm.environment.set(\"user_name\", user_name);\r",
+							"pm.environment.set(\"user_email\", user_email);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();\r",
+							"let user_id = jsonData.id;\r",
+							"\r",
+							"pm.environment.set(\"user_id\", user_id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{user_name}}\",\r\n    \"email\": \"{{user_email}}\",\r\n    \"gender\": \"female\",\r\n    \"status\": \"active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url_qa}}/public/v2/users",
+					"host": [
+						"{{url_qa}}"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get single user",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Validate userName\", () => {\r",
+							"    pm.expect(responseData.id).to.eq(pm.environment.get(\"user_id\"));\r",
+							"    pm.expect(responseData.name).to.eq(pm.environment.get(\"user_name\"));\r",
+							"    pm.expect(responseData.email).to.eq(pm.environment.get(\"user_email\"));\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_qa}}/public/v2/users/{{user_id}}",
+					"host": [
+						"{{url_qa}}"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update single user",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';\r",
+							"let result = '';\r",
+							"for (let i = 0; i < 8; i++) {\r",
+							"    const randomIndex = Math.floor(Math.random() * characters.length);\r",
+							"    result += characters[randomIndex];\r",
+							"}\r",
+							"\r",
+							"let user_name = result;\r",
+							"let user_email = result + \"@email.com\";\r",
+							"\r",
+							"pm.environment.set(\"user_name\", user_name);\r",
+							"pm.environment.set(\"user_email\", user_email);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{user_name}}\",\r\n    \"email\": \"{{user_email}}\",\r\n    \"gender\": \"male\",\r\n    \"status\": \"inactive\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url_qa}}/public/v2/users/{{user_id}}",
+					"host": [
+						"{{url_qa}}"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete single user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.unset(\"url_qa\");\r",
+							"pm.environment.unset(\"user_name\");\r",
+							"pm.environment.unset(\"user_email\");\r",
+							"pm.environment.unset(\"user_id\");"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url_qa}}/public/v2/users/{{user_id}}",
+					"host": [
+						"{{url_qa}}"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "5d4538007cf058677eeac00f714e0ceb28050ecd913996f4a9073313e678cf74",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
